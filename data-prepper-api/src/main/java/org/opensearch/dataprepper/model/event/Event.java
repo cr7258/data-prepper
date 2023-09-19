@@ -53,6 +53,8 @@ public interface Event extends Serializable {
      */
     <T> List<T> getList(String key, Class<T> clazz);
 
+    List<String> getKeys();
+
     /**
      * Deletes the given key from the Event
      * @param key the field to be deleted

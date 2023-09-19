@@ -23,8 +23,10 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -239,6 +241,16 @@ public class JacksonEvent implements Event {
             LOG.error("Unable to map {} to List of {}", key, clazz, e);
             throw new RuntimeException(String.format("Unable to map %s to %s", key, clazz), e);
         }
+    }
+
+    public List<String> getKeys() {
+        List<String> keys = new ArrayList<>();
+        Iterator<String> fieldNames = jsonNode.fieldNames();
+        while (fieldNames.hasNext()) {
+            String fieldName = fieldNames.next();
+            keys.add(fieldName);
+        }
+        return keys;
     }
 
     private JsonPointer toJsonPointer(final String key) {
